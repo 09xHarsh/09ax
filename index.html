@@ -35,27 +35,34 @@
     <meta name="twitter:image" content="/09xa-logo.png" />
     <!-- Relative URL for image -->
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- Google Site verification tag -->
-    <meta
-      name="google-site-verification"
-      content="%VITE_GOOGLE_SITE_VERIFICATION%"
-    />
     <title>%VITE_SITE_TITLE%</title>
   </head>
   <body>
-    <!-- Google tag -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+      let mode = "%VITE_IS_PROD_MODE%" === "true";
+      if (mode) {
+        // Insert Google site verification meta tag
+        const meta = document.createElement("meta");
+        meta.name = "google-site-verification";
+        meta.content = "%VITE_GOOGLE_SITE_VERIFICATION%";
+        document.head.appendChild(meta);
 
-      gtag("config", "%VITE_GA_MEASUREMENT_ID%");
+        // Insert Google Tag Manager script
+        const gtmScript = document.createElement("script");
+        gtmScript.src =
+          "https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%";
+        gtmScript.setAttribute("async", "");
+        document.head.appendChild(gtmScript);
+
+        // Google Analytics Setup
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "%VITE_GA_MEASUREMENT_ID%");
+      }
     </script>
 
     <h1>09ax</h1>
