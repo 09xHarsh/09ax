@@ -21,7 +21,7 @@ if (formElement) {
       alert("Email is required");
       return;
     }
-
+    const formData = new FormData(formElement);
     // Disable input and button
     emailInputElement.setAttribute("disabled", "true");
     emailInputElement.setAttribute("aria-disabled", "true");
@@ -39,7 +39,7 @@ if (formElement) {
       const options: RequestInit = {
         method: "POST",
         mode: "cors",
-        body: new FormData(formElement),
+        body: formData,
       };
 
       const response = await fetch(url, options);
